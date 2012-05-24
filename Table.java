@@ -1,5 +1,6 @@
 public class Table {
   AIPlayer[] player = new AIPlayer[4];
+  Deck theDeck = new Deck();
 
   public Table() {
     player[0]=new AIPlayer();
