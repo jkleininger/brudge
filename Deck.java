@@ -1,32 +1,44 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Deck {
   char[] suit = {'C','D','H','S'};
-  Card[] card = new Card[52];
+  ArrayList<Card> cardAL = new ArrayList<Card>(0);
+  ArrayList<Card> played = new ArrayList<Card>(0);
 
-  public Deck() {
-    for(int s=1;s<=4;s++) {
+  public Deck(boolean shuf) {
+    for(int s=0;s<=3;s++) {
       for(int v=1;v<=13;v++) {
-        card[v+(13*(s-1))-1]=new Card(v,suit[s-1]);
+        cardAL.add(new Card(v,suit[s]));
       }
     }
-    this.shuffle();
+    if(shuf) { this.shuffle(); }
+  }
+
+  public ArrayList<Card> getPlayed() {
+    return played;
   }
 
   public void shuffle() {
-    Card tmpCard;
-    
-    for(int i=0;i<52;i++) {
-      int j = (int)(Math.random()*52);
-      tmpCard=card[i];
-      card[i]=card[j];
-      card[j]=tmpCard;
-    }
+    Collections.shuffle(cardAL);
+  }
+
+  public void playCard(Card c) {
+    played.add(c);
   }
 
   public void printDeck() {
-    for(int c=0;c<card.length;c++) {
-      card[c].printCard();
-      System.out.print(" ");
+    for(int c=0;c<cardAL.size();c++) {
+      cardAL.get(c).printCard(); System.out.print(" ");
     }
+  }
+
+  public Card dealNext() {
+    return cardAL.remove(cardAL.size()-1);
+  }
+
+  public Card randomCard() {
+    return cardAL.get((int)(Math.random()*cardAL.size()));
   }
 
 }
