@@ -2,7 +2,7 @@ public class Table {
   AIPlayer[] player = new AIPlayer[4];
   Deck       theDeck = new Deck(true);
   Card[]     trick   = new Card[4];
-  char       suit    = 'H';
+  char       suit    = 'C';
   char       trump   = 'N';
 
   public Table() {
