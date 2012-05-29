@@ -15,14 +15,14 @@ public class AIPlayer {
     hand.add(c);
   }    
 
-  public void showHand() {
+  protected void showHand() {
     for(int c=0;c<hand.size();c++) {
       hand.get(c).printCard(); System.out.print(" ");
     }
     System.out.println();
   }
 
-  public void showChoices() {
+  protected void showChoices() {
     System.out.print("c> ");
     for(int c=0;c<choices.size();c++) {
       choices.get(c).printCard(); System.out.print(" ");
@@ -30,33 +30,28 @@ public class AIPlayer {
     System.out.println();
   }
 
-  Card selectAndPlay(ArrayList<Card> played,Card[] trick,char trump,char suit) {
+  public Card selectAndPlay(ArrayList<Card> played,ArrayList<Card> trick,char trump,char suit) {
     choices = new ArrayList<Card>(hand);
-    //if(hasSuit(suit)) { removeNonSuit(suit); }
     if(hasSuit(suit)) { leaveHighest(suit); }
     hand.remove(choices.get(0));
     return(choices.get(0));
   }
 
-  public boolean hasSuit(char suit) {
+  private boolean hasSuit(char suit) {
+    if(suit=='N') { return true; }
     for(int c=0;c<choices.size();c++) {
       if(choices.get(c).getSuit()==suit) { return true; }
     }
     return false;
   }
 
-  public void leaveHighest(char suit) {
-    removeNonSuit(suit);
+  private void leaveHighest(char suit) {
+    if(suit!='N') { removeNonSuit(suit); }
     Collections.sort(choices,byValRev);
-    Card h = choices.get(0);
-    for(int n=1;n<choices.size();n++) {
-      if(choices.get(n).getValue()>h.getValue()) { 
-        h=choices.get(n);
-      }
-    }
+    choices.removeAll(choices.subList(1,choices.size()));
   }
 
-  public void removeNonSuit(char suit) {
+  private void removeNonSuit(char suit) {
     Iterator<Card> i = choices.listIterator();
     while(i.hasNext()) {
       Card c = i.next();
