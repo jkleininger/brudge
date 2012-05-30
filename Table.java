@@ -1,10 +1,14 @@
-/*
-    S = 0
-    W = 1
-    N = 2
-    E = 3
-
-*/
+/******************************************************************************
+*
+*    Table.java
+*    Jason K Leininger
+*    2012-05-24
+*
+*    This class houses the players, the deck, and game properties.
+*
+*    S=0  W=1 N=2 E=3
+*
+******************************************************************************/
 import java.util.ArrayList;
 
 public class Table {
@@ -14,20 +18,38 @@ public class Table {
   char            suit        = 'C';
   char            trump       = 'D';
   Card            dummyCard   = new Card(2,'C');
-  int             dealer      = 0;
+  int             dealer      = -1;
+  int             lead        = 0;
   int             trickWinner = -1;
   int[]           score       = {0,0,0,0};
   char[]          swne        = {'S','W','N','E'};
   int             goal        = 0;
+  int             dummyHand   = -1;
+  int[]           partner     = {2,3,0,1};
+  int             declarer    = -1;
+  Bid             winningBid;
+  int             bidWinner   = 2;
 
-  public Table(int bidWinner, Bid winningBid) {
+  public Table() {
     for(int p=0;p<4;p++) { player[p]=new AIPlayer(); }
-    goal=winningBid.getValue();
-    suit=winningBid.getSuit();
-    dealer=bidWinner;
-    System.out.println("D:" + dealer + " G:" + goal + " S:" + suit);
+    dealer=(int)Math.random()*4;  //simulate dealer choice by cutting deck
     deal();
+
+    winningBid = doBidding().getActualLastBid();
+
+    goal=winningBid.getValue();
+    trump=winningBid.getSuit();
+    declarer=bidWinner; // NOT ACCURATE, BidList must contain this property
+    lead=declarer+1;
+    System.out.println("D:" + declarer + " G:" + goal + " T:" + trump);
     mainPlay();
+  }
+
+  private BidList doBidding() {
+    BidList b = new BidList();
+    b.addBid(2,'D');
+    b.addBid(3,'H');
+    return b;
   }
 
   public void deal() {
@@ -42,24 +64,23 @@ public class Table {
     System.out.println(" S  W  N  E");
     for(int i=0;i<4;i++) { trick.add(i,dummyCard); }
     for(int r=0;r<13;r++) {
-      int leader = dealer+1;
-      while(leader>3) { leader-=4; }
-      for(int t=leader;t<leader+4;t++) {
+      while(lead>3) { lead-=4; }
+      for(int t=lead;t<lead+4;t++) {
         int p=(t<4?t:t-4);
         trick.add(p,player[p].selectAndPlay(theDeck.getPlayed(),trick,trump,suit));
-        if(t==leader) { suit=trick.get(t).getSuit(); }
+        if(t==lead) { suit=trick.get(t).getSuit(); }
       }
-      trickWinner=getTrickWinner(leader,trump);
+      trickWinner=getTrickWinner(lead,trump);
       score[trickWinner]++;
       printTrick();
-      dealer=trickWinner;
+      lead=trickWinner;
     }
     printScores();
   }
 
   protected void printTrick() {
     for(int i=0;i<4;i++) { trick.get(i).printCard(); System.out.print(" "); }
-    System.out.print(" <D:" + swne[dealer] + " S:" + suit + " W:" + swne[trickWinner] + ">");
+    System.out.print(" <L:" + swne[lead] + " S:" + suit + " W:" + swne[trickWinner] + ">");
     System.out.println();
   }
 

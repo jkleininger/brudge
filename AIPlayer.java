@@ -3,7 +3,7 @@
 AIPlayer.java
 Jason K Leininger
 
-Individual AI player strategy based on hand, cards already played, current trick, trump, and suit
+Individual AI player strategy based on hand, dummy hand, cards already played, current trick, trump, and suit
 
 */
 

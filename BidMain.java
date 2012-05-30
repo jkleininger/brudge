@@ -49,7 +49,7 @@ public class BidMain{
 
     // new table instance, assuming player 0 (S) won bid
     // jkl 2012-05-20
-    Table theTable = new Table(0,new Bid(3,'D',bids.getActualLastBid()));
+    Table theTable = new Table();
 	}
 	
 	
