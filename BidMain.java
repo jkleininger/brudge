@@ -1,8 +1,6 @@
 public class BidMain{
 
 	public static void main(String args[]){
-
-                Table theTable = new Table();
 		
 		//creating test case, just declaring a hand of cards and previous bids
 		Hand hand = new Hand();
@@ -48,6 +46,10 @@ public class BidMain{
 		
 		//testing whatToBid with test case
 		System.out.println("\n" + whatToBid(hand, bids));
+
+    // new table instance, assuming player 0 (S) won bid
+    // jkl 2012-05-20
+    Table theTable = new Table(0,new Bid(3,'D',bids.getActualLastBid()));
 	}
 	
 	

@@ -1,3 +1,12 @@
+/*
+
+AIPlayer.java
+Jason K Leininger
+
+Individual AI player strategy based on hand, cards already played, current trick, trump, and suit
+
+*/
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Comparator;
@@ -48,6 +57,12 @@ public class AIPlayer {
   private void leaveHighest(char suit) {
     if(suit!='N') { removeNonSuit(suit); }
     Collections.sort(choices,byValRev);
+    choices.removeAll(choices.subList(1,choices.size()));
+  }
+
+  private void leaveLowest(char suit) {
+    if(suit!='N') { removeNonSuit(suit); }
+    Collections.sort(choices,byVal);
     choices.removeAll(choices.subList(1,choices.size()));
   }
 
