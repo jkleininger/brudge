@@ -39,16 +39,25 @@ public class AIPlayer {
     System.out.println();
   }
 
-  public Card selectAndPlay(ArrayList<Card> played,ArrayList<Card> trick,char trump,char suit) {
+  public Card selectAndPlay(ArrayList<Card> played,Card[] trick,char trump,char suit) {
     choices = new ArrayList<Card>(hand);
+    if(suit=='N') { pickSuit(); }  // player is lead
     if(hasSuit(suit)) { leaveHighest(suit); }
+    else if(hasSuit(trump)) { leaveLowest(trump); }
     hand.remove(choices.get(0));
     return(choices.get(0));
   }
 
+  private char pickSuit() {
+    char[] suits = {'C','H','D','S'};
+    return suits[(int)Math.random()*4];
+  }
+
   private boolean hasSuit(char suit) {
     if(suit=='N') { return true; }
+    //System.out.print("Checking hand for " + suit + "... ");
     for(int c=0;c<choices.size();c++) {
+      //System.out.print(choices.get(c).getSuit());
       if(choices.get(c).getSuit()==suit) { return true; }
     }
     return false;
