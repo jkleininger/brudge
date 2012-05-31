@@ -63,8 +63,7 @@ public class Table {
   }
 
   public void mainPlay() {
-    System.out.println(" S  W  N  E");
-    //for(int i=0;i<4;i++) { trick.add(i,dummyCard); }
+    System.out.println("  S      W      N      E");
     for(int r=0;r<13;r++) {
       suit='N';
       while(lead>3) { lead-=4; }
@@ -82,13 +81,15 @@ public class Table {
   }
 
   protected void printTrick() {
-    for(int i=0;i<4;i++) { trick[i].printCard(); System.out.print("(" + getAdjustedValue(trick[i],trump,suit) + ")"); System.out.print(" "); }
+    for(int i=0;i<4;i++) {
+      System.out.format("%s%s(%2d) ",trick[i].getCValue(),trick[i].getSuit(),getAdjustedValue(trick[i],trump,suit));
+    }
     System.out.print(" <L:" + swne[lead] + " S:" + suit + " W:" + swne[trickWinner] + ">");
     System.out.println();
   }
 
   protected void printScores() {
-    for(int i=0;i<4;i++) { System.out.print(" " + score[i] + " "); }
+    for(int i=0;i<4;i++) { System.out.print("  " + score[i] + "    "); }
     System.out.println();
     System.out.println("NS: " + (score[0]+score[2]));
     System.out.println("EW: " + (score[1]+score[3]));
