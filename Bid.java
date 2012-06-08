@@ -5,40 +5,40 @@ public class Bid{
 	char cSuit;
 	Bid nextBid;
 	Bid prevBid;
-	
+
+
 	public Bid(int tvalue, char tsuit, Bid pBid){
 		Bid bid;
-		if(tvalue > 0 && tvalue <=7)
-			value = tvalue;
-		else
-			System.out.println("Invalid Bid Value " + tvalue);
-			
-		if(tsuit == 'C' || tsuit == 'c'){
+
+    if(tvalue<1||tvalue>7) { 
+      System.out.println("Invalid Bid Value " + tvalue);
+      return;
+    }
+
+    value = tvalue;
+    tsuit = Character.toUpperCase(tsuit);
+    cSuit = tsuit;
+		
+		if(tsuit == 'C'){
 			suit = 1;
-			cSuit = 'C';
 		}
-		else if(tsuit == 'D' || tsuit == 'd'){
+		else if(tsuit == 'D'){
 			suit = 2;
-			cSuit = 'D';
 		}
-		else if(tsuit == 'H' || tsuit == 'h'){
+		else if(tsuit == 'H'){
 			suit = 3;
-			cSuit = 'H';
 		}
-		else if(tsuit == 'S' || tsuit == 's'){
+		else if(tsuit == 'S'){
 			suit = 4;
-			cSuit = 'S';
 		}
-		else if(tsuit == 'N' || tsuit == 'n'){
+		else if(tsuit == 'N'){
 			suit = 5;
-			cSuit = 'N';
 		}
-		else if(tsuit == 'P' || tsuit == 'p'){
+		else if(tsuit == 'P'){
 			suit = 0;
-			cSuit = 'P';
 			value = 1;
 		}
-		else if(tsuit == 'D' || tsuit == 'd'){
+		else if(tsuit == 'D'){
 			//set this bid to the last non passing bid
 			bid = prevBid;
 			if(bid == null){

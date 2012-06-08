@@ -1,4 +1,4 @@
-public class BidMain{
+public class BidMain {
 
 	public static void main(String args[]){
 		

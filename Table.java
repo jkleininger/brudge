@@ -4,14 +4,14 @@
 *    Jason K Leininger
 *    2012-05-24
 *
-*    This class houses the players, the deck, and game properties.
+*    This class envokes the players, the deck, and game properties.
 *
-*    S=0  W=1 N=2 E=3
+*    S=0  W=1  N=2  E=3
 *
 ******************************************************************************/
 import java.util.ArrayList;
-import java.util.HashMap;
-		
+//import java.util.HashMap;
+
 public class Table {
   AIPlayer[]      player      = new AIPlayer[4];
   Deck            theDeck     = new Deck(true);
