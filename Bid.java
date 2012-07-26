@@ -8,17 +8,33 @@ public class Bid{
 
 
 	public Bid(int tvalue, char tsuit, Bid pBid){
-		Bid bid;
+        Bid bid;
 
-    if(tvalue<1||tvalue>7) { 
-      System.out.println("Invalid Bid Value " + tvalue);
-      return;
-    }
+        if(tvalue<1||tvalue>7) { 
+          System.out.println("Invalid Bid Value " + tvalue);
+          return;
+        }
 
-    value = tvalue;
-    tsuit = Character.toUpperCase(tsuit);
-    cSuit = tsuit;
-		
+        value = tvalue;
+        tsuit = Character.toUpperCase(tsuit);
+        cSuit = tsuit;
+
+        /*
+        switch(tsuit) {
+            case 'C': suit = 1;
+            case 'D': suit = 2;
+            case 'H': suit = 3;
+            case 'S': suit = 4;
+            case 'N': suit = 5;
+            case 'P': suit = 0; value = 1;
+            default:
+                suit  =  0;
+                cSuit = 'O';
+                value =  0;
+                System.out.println("Invalid suit specified.");
+        }
+        */
+
 		if(tsuit == 'C'){
 			suit = 1;
 		}
@@ -109,13 +125,6 @@ public class Bid{
  		nextBid = null;
 	}
 	
-	void setNextBid(Bid tBid){
-		nextBid = tBid;
-	}
-	
-	void setPrevBid(Bid tBid){
-		prevBid = tBid;
-	}
 	
 	void printBid(){
 		if(suit == 0)
@@ -123,24 +132,13 @@ public class Bid{
 		else
 			System.out.print(value + "" + cSuit);
 	}
-	
-	Bid getNextBid(){
-		return nextBid;
-	}
-	
-	Bid getPrevBid(){
-		return prevBid;
-	}
-	
-	int getIntSuit(){
-		return suit;
-	}
-	
-	char getSuit(){
-		return cSuit;
-	}
-	
-	int getValue(){
-		return value;
-	}
+
+    void setNextBid(Bid tBid){ nextBid = tBid; }
+    void setPrevBid(Bid tBid){ prevBid = tBid; }
+
+    Bid  getNextBid() { return nextBid; }
+    Bid  getPrevBid() { return prevBid; }
+    int  getIntSuit() { return suit;    }
+    char getSuit()    { return cSuit;   }
+    int  getValue()   { return value;   }
 }

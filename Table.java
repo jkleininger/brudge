@@ -1,36 +1,34 @@
-/******************************************************************************
+/***********************************************************************
 *
 *    Table.java
 *    Jason K Leininger
 *    2012-05-24
 *
-*    This class envokes the players, the deck, and game properties.
+*    This class invokes the players, the deck, and game properties.
 *
 *    S=0  W=1  N=2  E=3
 *
-******************************************************************************/
+***********************************************************************/
 import java.util.ArrayList;
-//import java.util.HashMap;
 
 public class Table {
   AIPlayer[]      player      = new AIPlayer[4];
   Deck            theDeck     = new Deck(true);
-  ArrayList<Card> trickAL     = new ArrayList<Card>(4);
   Card[]          trick       = new Card[4];
   char            suit        = 'N';
   char            trump       = 'D';
-  Card            dummyCard   = new Card(2,'C');
   int             dealer      = -1;
   int             lead        = 0;
   int             trickWinner = -1;
   int[]           score       = {0,0,0,0};
   char[]          swne        = {'S','W','N','E'};
   int             goal        = 0;
-  int             dummyHand   = -1;
   int[]           partner     = {2,3,0,1};
   int             declarer    = -1;
   Bid             winningBid;
   int             bidWinner   = 2;
+
+  Trick[]         tricks      = new Trick[13];
 
   public Table() {
     for(int p=0;p<4;p++) { player[p]=new AIPlayer(); }
@@ -63,7 +61,6 @@ public class Table {
   }
 
   public void mainPlay() {
-    System.out.println("  S      W      N      E");
     for(int r=0;r<13;r++) {
       suit='N';
       while(lead>3) { lead-=4; }
@@ -72,44 +69,10 @@ public class Table {
         trick[p]=player[p].selectAndPlay(theDeck.getPlayed(),trick,trump,suit);
         if(t==lead) { suit=trick[t].getSuit(); }
       }
-      trickWinner=getTrickWinner(lead,trump);
-      score[trickWinner]++;
-      printTrick();
-      lead=trickWinner;
+
+      tricks[r] = new Trick(trick,lead,suit,trump);
+      lead=tricks[r].getWinner();
     }
-    printScores();
-  }
-
-  protected void printTrick() {
-    for(int i=0;i<4;i++) {
-      System.out.format("%s%s(%2d) ",trick[i].getCValue(),trick[i].getSuit(),getAdjustedValue(trick[i],trump,suit));
-    }
-    System.out.print(" <L:" + swne[lead] + " S:" + suit + " W:" + swne[trickWinner] + ">");
-    System.out.println();
-  }
-
-  protected void printScores() {
-    for(int i=0;i<4;i++) { System.out.print("  " + score[i] + "    "); }
-    System.out.println();
-    System.out.println("NS: " + (score[0]+score[2]));
-    System.out.println("EW: " + (score[1]+score[3]));
-  }
-
-  private int getTrickWinner(int leader, char trump) {
-    char suit = trick[leader].getSuit();
-    int theWinner = -1;
-    int highValue = 0;
-    for(int t=0;t<4;t++) {
-      int av = getAdjustedValue(trick[t],trump,suit);
-      if(av>highValue) { theWinner=t; highValue=av; }
-    }
-    return theWinner;
-  }
-
-  private int getAdjustedValue(Card c, char trump, char suit) {
-    if(c.getSuit()==trump) return c.getValue()+39;
-    if(c.getSuit()==suit)  return c.getValue()+13;
-    return c.getValue();
   }
 
 }

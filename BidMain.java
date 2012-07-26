@@ -1,60 +1,14 @@
 public class BidMain {
 
 	public static void main(String args[]){
-		
-		//creating test case, just declaring a hand of cards and previous bids
-		Hand hand = new Hand();
-		BidList bids = new BidList();
-		Card card1 = new Card(2,'c');
-		Card card2 = new Card(5,'d');
-		Card card3 = new Card(1,'h');
-		Card card4 = new Card(13,'d');
-		Card card5 = new Card(12,'d');
-		Card card6 = new Card(11,'c');
-		Card card7 = new Card(4,'s');
-		Card card8 = new Card(3,'d');
-		Card card9 = new Card(6,'s');
-		Card card10 = new Card(7,'c');
-		Card card11 = new Card(8,'h');
-		Card card12 = new Card(9,'d');
-		Card card13 = new Card(10,'s');
-	
-		hand.addCard(card1);
-		hand.addCard(card2);
-		hand.addCard(card3);
-		hand.addCard(card4);
-		hand.addCard(card5);
-		hand.addCard(card6);
-		hand.addCard(card7);
-		hand.addCard(card8);
-		hand.addCard(card9);
-		hand.addCard(card10);
-		hand.addCard(card11);
-		hand.addCard(card12);
-		hand.addCard(card13);
-		
-		bids.addBid('P');
-		bids.addBid(1,'d');
-		bids.addBid('P');
-		bids.addBid(1,'h');
-		bids.addBid(2,'c');
-		bids.addBid('P');
-		bids.addBid(2,'N');
-		bids.addBid('P');
-		bids.addBid(3,'C');
-		bids.addBid('P');
-		
-		//testing whatToBid with test case
-		System.out.println("\n" + whatToBid(hand, bids));
-
-    // new table instance, assuming player 0 (S) won bid
-    // jkl 2012-05-20
-    Table theTable = new Table();
+        // new table instance, assuming player 0 (S) won bid
+        // jkl 2012-05-20
+        Table theTable = new Table();
 	}
 	
 	
 	public static String whatToBid(Hand cards, BidList prevBids){
-		String highBid = prevBids.getLastBid();		
+		String highBid = prevBids.getLastBid();
 		BidList allyBids = prevBids.getAllyBids();
 		String highAlly = allyBids.getLastBid();
 		boolean winning = highAlly.equals(highBid);

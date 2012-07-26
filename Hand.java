@@ -35,8 +35,7 @@ public class Hand{
 	//adds a card to the hand
 	void addCard(Card newCard){
 		if(numCards < 13){
-			cards[numCards] = newCard;
-			numCards ++;
+			cards[numCards++] = newCard;
 			processCard(newCard);
 		}
 		else
