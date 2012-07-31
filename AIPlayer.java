@@ -15,6 +15,7 @@ import java.util.Collections;
 public class AIPlayer {
   ArrayList<Card> choices;
   ArrayList<Card> hand;
+  int             points = 0;
 
   public AIPlayer() {
     hand = new ArrayList<Card>(0);
@@ -55,9 +56,7 @@ public class AIPlayer {
 
   private boolean hasSuit(char suit) {
     if(suit=='N') { return true; }
-    //System.out.print("Checking hand for " + suit + "... ");
     for(int c=0;c<choices.size();c++) {
-      //System.out.print(choices.get(c).getSuit());
       if(choices.get(c).getSuit()==suit) { return true; }
     }
     return false;
@@ -93,5 +92,8 @@ public class AIPlayer {
       return c2.getValue()-c1.getValue();
     }
   };
+
+  int getPoints() { return(points); }
+  void setPoints(int p) { this.points = p; }
 
 }

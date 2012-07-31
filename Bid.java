@@ -5,6 +5,7 @@ public class Bid{
 	char cSuit;
 	Bid nextBid;
 	Bid prevBid;
+    int doubled = 1;   //1, 2, 4
 
 
 	public Bid(int tvalue, char tsuit, Bid pBid){
@@ -135,10 +136,16 @@ public class Bid{
 
     void setNextBid(Bid tBid){ nextBid = tBid; }
     void setPrevBid(Bid tBid){ prevBid = tBid; }
+    void incDoubled()        { if(this.doubled<4) { this.doubled+=2; } }
 
     Bid  getNextBid() { return nextBid; }
     Bid  getPrevBid() { return prevBid; }
     int  getIntSuit() { return suit;    }
     char getSuit()    { return cSuit;   }
     int  getValue()   { return value;   }
+    int  getDoubled() { return doubled; }
+
+    boolean isMajor() { return (suit=='H'||suit=='S'); }
+    boolean isMinor() { return (suit=='D'||suit=='C'); }
+
 }
