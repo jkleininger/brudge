@@ -16,6 +16,7 @@ public class AIPlayer {
   ArrayList<Card> choices;
   ArrayList<Card> hand;
   int             points = 0;
+  boolean         vulnerable = false;
 
   public AIPlayer() {
     hand = new ArrayList<Card>(0);
@@ -93,7 +94,8 @@ public class AIPlayer {
     }
   };
 
-  int getPoints() { return(points); }
-  void setPoints(int p) { this.points = p; }
+  int     getPoints()      { return(points);         }
+  void    setPoints(int p) { this.points = p;        }
+  boolean isVulnerable()   { return this.vulnerable; }
 
 }

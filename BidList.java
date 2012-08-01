@@ -1,20 +1,16 @@
 public class BidList{
 
-	int numBids;
-	Bid startBid;
-	Bid lastBid;
+	int numBids=0;
+    int numRealBids=0;
+	Bid startBid=null;
+    Bid lastBid=null;
+
 	//these never should contain pass
-	int numRealBids;
-	Bid firstRealBid;
-	Bid lastRealBid;
+	Bid firstRealBid=null;
+    Bid lastRealBid=null;
 
 	public BidList(){
-		numBids = 0;
-		numRealBids = 0;
-		lastBid = null;
-		startBid = null;
-		firstRealBid = null;
-		lastRealBid = null;
+        return;
 	}
 	
 	void addBid(int value, char suit){
@@ -71,39 +67,27 @@ public class BidList{
 	}
 
 	String getFirstBid(){
-		if(firstRealBid == null)
-			return null;
+		if(firstRealBid == null) { return null; }
 		String output = "";
 		output += firstRealBid.getValue();
 		output += firstRealBid.getSuit();
-		return output;		
+		return output;
 	}
 	
 	String getLastBid(){
-		if(lastRealBid == null)
-			return null;
+		if(lastRealBid == null) { return null; }
 		String output = "";
 		output += lastRealBid.getValue();
 		output += lastRealBid.getSuit();
 		return output;
 	}
 	
-	Bid getFirstBidAsBid(){
-		return firstRealBid;
-	}
-	
-	Bid getActualLastBid(){
-		return lastBid;
-	}
-	
-	int getNumberBids(){
-		return numBids;
-	}
+	Bid getFirstBidAsBid()  { return firstRealBid; }
+	Bid getActualLastBid()  { return lastBid; }
+	int getNumberBids()     { return numBids; }
 	
 	//removes passes from bid count
-	int getNumberRealBids(){
-		return numRealBids;
-	}
+	int getNumberRealBids() { return numRealBids; }
 	
 	//makes a BidList of only you and your partner's Bids
 	//if there is an odd number of bids in the return value that means your

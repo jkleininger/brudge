@@ -1,6 +1,6 @@
 public class Card{
 
-    int suit, value;
+    int  suit,  value;
     char cSuit, cValue;
 
     public Card(int tvalue, char tsuit){

@@ -37,10 +37,10 @@ public class Table {
 
     contract = doBidding().getActualLastBid();
 
-    goal=contract.getValue();
-    trump=contract.getSuit();
-    declarer=bidWinner; // NOT ACCURATE, BidList must contain this property
-    lead=declarer+1;
+    goal     = contract.getValue();
+    trump    = contract.getSuit();
+    declarer = bidWinner; // NOT ACCURATE, BidList must contain this property
+    lead     = declarer+1;
     System.out.println("D:" + declarer + " G:" + goal + " T:" + trump);
     mainPlay();
   }
