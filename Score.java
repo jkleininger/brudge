@@ -18,39 +18,42 @@
 
 public class Score {
 
-  int NS = 0;
-  int EW = 1;
+  int declarers, defenders;
 
-  int[] pContract   = {0,0,0,0};
+  int[] partner     = {2,3,0,1};
+
+  int[] pContract   = {0,0};
   int[] pOvertricks = {0,0,0,0};
   int[] pBonus      = {0,0,0,0};
   int[] pSlam       = {0,0,0,0};
-  int[] tricksWon   = {0,0,0,0};
+  int[] tricksWon   = {0,0};
   int[] scores      = {0,0,0,0};
 
   boolean vulnerable = false;
 
   public Score(Trick[] tricks, Bid contract, int declarer) {
 
+    declarers = declarer<2?declarer:declarer-2;
+    defenders = declarer==0?1:0;
+
     // tally tricks won by each player
     int numOfTricks = tricks.length;
     for(int n=0;n<numOfTricks;n++) {
       int thisWinner = tricks[n].getWinner();
+      thisWinner = thisWinner<2?thisWinner:thisWinner-2;
       tricksWon[thisWinner]++;
     }
-
+ 
     // calculate contract points for each player
     int cpPerTrick  = contract.isMinor()?20:30;
-    for(int n=0;n<4;n++) {
-      if(tricksWon[n]>6) {
-        pContract[n]=(tricksWon[n]-6)*cpPerTrick*contract.getDoubled();
-        if(contract.getSuit()=='N') { pContract[n]+=(contract.getDoubled()*10); }
-      }
+    if(tricksWon[declarers]>6) {
+      pContract[declarers]=(tricksWon[declarers]-6)*contract.getDoubled();
+      if(contract.getSuit()=='N') { pContract[declarers]+=(contract.getDoubled()*10); }
     }
 
     //calculate overtrick bonus
     int pOBonus = 0;
-    if(tricksWon[declarer]>(contract.getValue()+6)) {
+    if((tricksWon[declarers])>(contract.getValue()+6)) {
       switch(contract.getDoubled()) {
         case 1:
           pOBonus=contract.isMinor()?20:30;
@@ -64,7 +67,7 @@ public class Score {
         default:
           break;
       }
-      pOvertricks[declarer]=(tricksWon[declarer]-contract.getValue()-6)*pOBonus;
+      pOvertricks[declarers]=((tricksWon[declarers])-contract.getValue()-6)*pOBonus;
     }
 
     printScores();
@@ -74,20 +77,20 @@ public class Score {
   private void printScores() {
 
     System.out.print("TR: ");
-    for(int n=0;n<4;n++) {
+    for(int n=0;n<2;n++) {
       System.out.print(tricksWon[n] + " ");
     }
     System.out.println();
 
 
     System.out.print("CP: ");
-    for(int n=0;n<4;n++) {
+    for(int n=0;n<2;n++) {
       System.out.print(pContract[n] + " ");
     }
     System.out.println();
 
     System.out.print("OT: ");
-    for(int n=0;n<4;n++) {
+    for(int n=0;n<2;n++) {
       System.out.print(pOvertricks[n] + " ");
     }
     System.out.println();

@@ -42,6 +42,4 @@ public class Trick {
     return c.getValue();
   }
 
-
-
 }
