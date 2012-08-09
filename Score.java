@@ -2,7 +2,7 @@
 *
 * Duplicate scoring overview:
 *
-* A successful contract yields a score summing the folliwing:
+* A successful contract yields a score summing the following:
 *   - The contract
 *   - Overtricks
 *   - Part-score / game-score bonus
@@ -23,7 +23,8 @@ public class Score {
   int[] partner     = {2,3,0,1};
 
   int[] pContract   = {0,0};
-  int[] pOvertricks = {0,0,0,0};
+  int[] pOvertricks = {0,0};
+  int[] pLevelBonus = {0,0};
   int[] pBonus      = {0,0,0,0};
   int[] pSlam       = {0,0,0,0};
   int[] tricksWon   = {0,0};
@@ -70,31 +71,26 @@ public class Score {
       pOvertricks[declarers]=((tricksWon[declarers])-contract.getValue()-6)*pOBonus;
     }
 
+    //calculate level bonus
+    pLevelBonus[declarers]=0;
+    if(pContract[declarers]<100) { pLevelBonus[declarers]=50;  } else {
+      switch(contract.getValue()) {
+        case 6: pLevelBonus[declarers]=vulnerable?750:500;   break;
+        case 7: pLevelBonus[declarers]=vulnerable?1500:1000; break;
+        default: break;
+      }
+      if(pContract[declarers]>=100) { pLevelBonus[declarers]+=500; }
+    }
+
     printScores();
 
   }
 
   private void printScores() {
-
-    System.out.print("TR: ");
-    for(int n=0;n<2;n++) {
-      System.out.print(tricksWon[n] + " ");
-    }
-    System.out.println();
-
-
-    System.out.print("CP: ");
-    for(int n=0;n<2;n++) {
-      System.out.print(pContract[n] + " ");
-    }
-    System.out.println();
-
-    System.out.print("OT: ");
-    for(int n=0;n<2;n++) {
-      System.out.print(pOvertricks[n] + " ");
-    }
-    System.out.println();
-
+    System.out.println("TR: " + tricksWon[0]   + " " + tricksWon[1]);
+    System.out.println("CP: " + pContract[0]   + " " + pContract[1]);
+    System.out.println("OT: " + pOvertricks[0] + " " + pOvertricks[1]);
+    System.out.println("LV: " + pLevelBonus[0] + " " + pLevelBonus[1]);
   }
 
 
