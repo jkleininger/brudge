@@ -11,6 +11,7 @@
 ***********************************************************************/
 import java.util.ArrayList;
 
+
 public class Table {
   AIPlayer[]      player      = new AIPlayer[4];
   Deck            theDeck     = new Deck(true);
@@ -29,6 +30,10 @@ public class Table {
 
   Trick[]         tricks      = new Trick[13];
   Score           theScore;
+
+  public static void main(String args[]){
+    Table theTable = new Table();
+  }
 
   public Table() {
     for(int p=0;p<4;p++) { player[p]=new AIPlayer(); }

@@ -1,13 +1,6 @@
 public class BidMain {
 
-	public static void main(String args[]){
-        // new table instance, assuming player 0 (S) won bid
-        // jkl 2012-05-20
-        Table theTable = new Table();
-	}
-	
-	
-	public static String whatToBid(Hand cards, BidList prevBids){
+  public static String whatToBid(Hand cards, BidList prevBids){
 		String highBid = prevBids.getLastBid();
 		BidList allyBids = prevBids.getAllyBids();
 		String highAlly = allyBids.getLastBid();

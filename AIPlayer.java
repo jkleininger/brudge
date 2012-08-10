@@ -41,6 +41,8 @@ public class AIPlayer {
     System.out.println();
   }
 
+
+  // systematically eliminates cards from hand.  returns whatever remains.
   public Card selectAndPlay(ArrayList<Card> played,Card[] trick,char trump,char suit) {
     choices = new ArrayList<Card>(hand);
     if(suit=='N') { pickSuit(); }  // player is lead
