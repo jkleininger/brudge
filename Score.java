@@ -28,14 +28,16 @@ public class Score {
   int[] pBonus      = {0,0,0,0};
   int[] pSlam       = {0,0,0,0};
   int[] tricksWon   = {0,0};
-  int[] scores      = {0,0,0,0};
+  int[] scores      = {0,0};
 
   boolean vulnerable = false;
 
   public Score(Trick[] tricks, Bid contract, int declarer) {
 
+    System.out.println("Declarer: " + declarer);
+
     declarers = declarer<2?declarer:declarer-2;
-    defenders = declarer==0?1:0;
+    defenders = declarers==0?1:0;
 
     // tally tricks won by each player
     int numOfTricks = tricks.length;
@@ -44,7 +46,7 @@ public class Score {
       thisWinner = thisWinner<2?thisWinner:thisWinner-2;
       tricksWon[thisWinner]++;
     }
- 
+
     // calculate contract points for each player
     int cpPerTrick  = contract.isMinor()?20:30;
     if(tricksWon[declarers]>6) {
@@ -82,6 +84,17 @@ public class Score {
       if(pContract[declarers]>=100) { pLevelBonus[declarers]+=500; }
     }
 
+    if(tricksWon[declarers]>=(contract.getValue()+6)) {
+      System.out.print("We did it! --> ");
+      scores[declarers]=pContract[declarers]+pOvertricks[declarers]+pLevelBonus[declarers];
+      scores[defenders]=(-1)*scores[declarers];
+      System.out.println(scores[0] + " x " + scores[1]);
+    } else {
+      System.out.println("We failed!");
+      scores[defenders]+=tricksWon[defenders];
+      scores[declarers]-=scores[defenders];
+    }
+
     printScores();
 
   }
@@ -91,6 +104,9 @@ public class Score {
     System.out.println("CP: " + pContract[0]   + " " + pContract[1]);
     System.out.println("OT: " + pOvertricks[0] + " " + pOvertricks[1]);
     System.out.println("LV: " + pLevelBonus[0] + " " + pLevelBonus[1]);
+    System.out.println();
+    System.out.println("Declarers: " + scores[declarers]);
+    System.out.println("Defenders: " + scores[defenders]);
   }
 
 
