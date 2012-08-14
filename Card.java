@@ -1,4 +1,6 @@
-public class Card{
+import javax.swing.ImageIcon;
+
+public class Card extends ImageIcon {
 
     int  suit,  value;
     char cSuit, cValue;
