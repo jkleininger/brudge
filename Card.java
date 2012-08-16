@@ -1,9 +1,11 @@
 import javax.swing.ImageIcon;
 
-public class Card extends ImageIcon {
+public class Card {
 
     int  suit,  value;
     char cSuit, cValue;
+
+    
 
     public Card(int tvalue, char tsuit){
         tsuit = Character.toUpperCase(tsuit);
