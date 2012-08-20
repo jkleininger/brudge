@@ -1,12 +1,36 @@
 public class Bid{
 
-	int value;
-	int suit;
-	char cSuit;
-	Bid nextBid;
-	Bid prevBid;
-    int doubled = 1;   //1, 2, 4
+  int value, suit;
+  char cSuit;
+  Bid prevBid, nextBid;
+  int doubled = 1;   //1, 2, 4
 
+  char[] suits = {'N','C','D','H','S'};
+
+  public Bid(int l, int s, boolean d, Bid pBid) {
+    Bid bid;
+
+    value = l;
+    cSuit = ' ';
+
+    if(d) {
+      bid=prevBid;
+      if(bid==null) return;
+      suit=bid.getIntSuit();
+      while(suit==0) {
+        bid=bid.getPrevBid();
+        if(bid==null) return;
+        suit=bid.getIntSuit();
+      }
+      cSuit=bid.getSuit();
+      value=bid.getValue();
+      doubled*=2;
+    }
+
+    prevBid=pBid;
+    nextBid=null;
+
+  }
 
 	public Bid(int tvalue, char tsuit, Bid pBid){
         Bid bid;

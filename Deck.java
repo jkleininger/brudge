@@ -5,24 +5,23 @@ import javax.imageio.ImageIO;
 import java.io.*;
 
 public class Deck {
-  char[] suit = {'C','D','H','S'};
+  char[] suit = {'N','C','D','H','S'};
   ArrayList<Card> card   = new ArrayList<Card>(0);
   ArrayList<Card> played = new ArrayList<Card>(0);
-  BufferedImage       cImg;
+  BufferedImage   cImg;
 
   public Deck(boolean shuf) {
     try { cImg = ImageIO.read(new File("assets/cards.png")); } catch (IOException e) { System.exit(1); }
-    for(int s=0;s<=3;s++) {
+    for(int s=1;s<=4;s++) {
       for(int v=1;v<=13;v++) {
-        card.add(new Card(v,suit[s]));
+        card.add(new Card(v,s,extractCardImage(v,s)));
       }
     }
     if(shuf) { this.shuffle(); }
   }
 
-  public ArrayList<Card> getPlayed() {
-    return played;
-  }
+  public ArrayList<Card> getDeck()   { return card;   }
+  public ArrayList<Card> getPlayed() { return played; }
 
   public void shuffle() {
     Collections.shuffle(card);
@@ -46,10 +45,10 @@ public class Deck {
     return card.get((int)(Math.random()*card.size()));
   }
 
-  public BufferedImage getCardImage(int v, char s) {
-    s = Character.toUpperCase(s);
-    int vOff = v * 58;
-    return cImg.getSubimage(vOff,0,54,80);
+  public BufferedImage extractCardImage(int v, int s) {
+    int vOff = (v-1) * 73;
+    int sOff = (s-1) * 98;
+    return cImg.getSubimage(vOff,sOff,72,97);
   }
 
 }

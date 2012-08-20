@@ -87,12 +87,12 @@ public class AIPlayer {
 
   Comparator<Card> byVal = new Comparator<Card>() {
     public int compare(Card c1, Card c2) {
-      return c1.getValue()-c2.getValue();
+      return c1.getRank()-c2.getRank();
     }
   };
   Comparator<Card> byValRev = new Comparator<Card>() {
     public int compare(Card c1, Card c2) {
-      return c2.getValue()-c1.getValue();
+      return c2.getRank()-c1.getRank();
     }
   };
 

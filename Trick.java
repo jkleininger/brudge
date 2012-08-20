@@ -19,7 +19,7 @@ public class Trick {
   
   private void printTrick() {
     for(int i=0;i<4;i++) {
-      System.out.format("%s%s ", cards[i].getCValue(), cards[i].getSuit());
+      System.out.format("%s%s ", cards[i].getCRank(), cards[i].getSuit());
     }
     System.out.print(" <L:" + lead + " S:" + suit + " W:" + winner + ">");
     System.out.println();
@@ -37,9 +37,9 @@ public class Trick {
   }
 
   private int getAdjustedValue(Card c, char trump, char suit) {
-    if(c.getSuit()==trump) return c.getValue()+39;
-    if(c.getSuit()==suit)  return c.getValue()+26;
-    return c.getValue();
+    if(c.getSuit()==trump) return c.getRank()+39;
+    if(c.getSuit()==suit)  return c.getRank()+26;
+    return c.getRank();
   }
 
 }

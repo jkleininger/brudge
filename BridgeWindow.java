@@ -17,13 +17,23 @@ public class BridgeWindow extends JFrame {
       public void windowClosing(WindowEvent e) { System.exit(0); }
     });
 
+    addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e) { processClick(e.getX(),e.getY()); }
+    });
+
   }
 
   public void paint(Graphics g) {
     super.paint(g);
-    for(int d=0;d<10;d++) {
-      g.drawImage(tmpDeck.getCardImage(d,'c'), d*30, d*50, this);
+    
+    for(Card thisCard : tmpDeck.getDeck()) {
+      g.drawImage(thisCard.getImage(),thisCard.getRank()*15,thisCard.getRank()*10,this);
     }
+
+  }
+
+  public void processClick(int x, int y) {
+    System.out.println("Clicked (" + x + "," + y + ")") ;
   }
 
 }

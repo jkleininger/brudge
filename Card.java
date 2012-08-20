@@ -1,49 +1,35 @@
 import javax.swing.ImageIcon;
+import java.awt.image.*;
 
 public class Card {
 
-    int  suit,  value;
-    char cSuit, cValue;
+    int  suit,  rank;
 
-    
+    char[] suits = {'N','C','D','H','S'};
+    char[] ranks = {'A','2','3','4','5','6','7','8','9','T','J','Q','K','A'};
 
-    public Card(int tvalue, char tsuit){
-        tsuit = Character.toUpperCase(tsuit);
-        cSuit = tsuit;
+    int xPos,yPos,zPos;
 
-        switch(tsuit) {
-            case 'C': suit=1; break;
-            case 'D': suit=2; break;
-            case 'H': suit=3; break;
-            case 'S': suit=4; break;
-            default:
-                suit=0;
-                cSuit='O';
-                System.out.println("Invalid suit specified");
-                break;
-        }
+    boolean faceup;
 
-        value = tvalue;
-        if(value==1) { value = 14; }
-        if(value<=9) {
-            cValue = (char)('0'+value);
-        } else {
-            switch(value) {
-                case 10: cValue='T'; break;
-                case 11: cValue='J'; break;
-                case 12: cValue='Q'; break;
-                case 13: cValue='K'; break;
-                case 14: cValue='A'; break;
-                default: System.out.println("Invalid value"); break;
-            }
-        }
+    BufferedImage img;
+
+    public Card(int r, int s, BufferedImage cardImage) {
+      suit   = s;
+      rank   = r==0?14:r;
+      faceup = false;
+      img    = cardImage;
     }
 
-    void printCard()  { System.out.print(cValue + "" + cSuit); }
+    public BufferedImage getImage() { return this.img; }
 
-    int  getValue()   { return value;  }
-    char getCValue()  { return cValue; }
-    int  getIntSuit() { return suit;   }
-    char getSuit()    { return cSuit;  }
+    void printCard()  { System.out.print(ranks[rank] + "" + suits[suit]); }
+
+    int  getRank()    { return rank;         }
+    char getCRank()   { return ranks[rank];  }
+    int  getIntSuit() { return suit;         }
+    char getSuit()    { return suits[suit];  }
+
+    void flip()       { faceup = !faceup;    }
 
 }
