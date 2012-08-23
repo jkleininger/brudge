@@ -12,12 +12,14 @@ public class Deck {
 
   public Deck(boolean shuf) {
     try { cImg = ImageIO.read(new File("assets/cards.png")); } catch (IOException e) { System.exit(1); }
-    for(int s=1;s<=4;s++) {
-      for(int v=1;v<=13;v++) {
-        card.add(new Card(v,s,extractCardImage(v,s)));
+    for(int s=1;s<=1;s++) {
+      for(int r=1;r<=13;r++) {
+        card.add(new Card(r,s,-1,extractCardImage(r,s)));
       }
     }
     if(shuf) { this.shuffle(); }
+    int n=0;
+    for(Card theCard : card) { theCard.setZ(n++); }
   }
 
   public ArrayList<Card> getDeck()   { return card;   }
@@ -25,6 +27,10 @@ public class Deck {
 
   public void shuffle() {
     Collections.shuffle(card);
+  }
+
+  public void sortByZ() {
+    Collections.sort(card);
   }
 
   public void playCard(Card c) {
@@ -45,10 +51,28 @@ public class Deck {
     return card.get((int)(Math.random()*card.size()));
   }
 
-  public BufferedImage extractCardImage(int v, int s) {
-    int vOff = (v-1) * 73;
+  public BufferedImage extractCardImage(int r, int s) {
+    int rOff = (r-1) * 73;
     int sOff = (s-1) * 98;
-    return cImg.getSubimage(vOff,sOff,72,97);
+    return cImg.getSubimage(rOff,sOff,72,97);
+  }
+  
+  public Card getClicked(int x, int y) {
+    int z=-1;
+    for(Card theCard : card) {
+	  if(theCard.contains(x,y)) { z=theCard.getZ(); }
+	}
+    if(z>=0) { return card.get(z); } else { return null; }
+  }
+
+  public void bringToFront(Card theCard) {
+    //System.out.print("Bringing "); theCard.printCard(); System.out.print(" to the front\n");
+    int oldZ = theCard.getZ();
+    for(Card c : card) {
+	  if(c.getZ()>oldZ) { c.decZ(); }
+	}
+    theCard.setZ(card.size()-1);
+    sortByZ();
   }
 
 }

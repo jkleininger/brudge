@@ -40,14 +40,13 @@ public class Hand{
     processCard(newCard);
   }
 
-
   //HCP,numSuit,HCPSuit,HCSuit
   //Maintains data when card is added
   void processCard(Card newCard){
-    int rank = newCard.getRank();
-    int suit = newCard.getIntSuit();
+    int rank    = newCard.getRank();
+    int suit    = newCard.getIntSuit();
     int adjRank = 1;
-    int goesTo = 0;
+    int goesTo  = 0;
 
     numSuit[suit] ++;
 

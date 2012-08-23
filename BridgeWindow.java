@@ -27,13 +27,18 @@ public class BridgeWindow extends JFrame {
     super.paint(g);
     
     for(Card thisCard : tmpDeck.getDeck()) {
-      g.drawImage(thisCard.getImage(),thisCard.getRank()*15,thisCard.getRank()*10,this);
+      g.drawImage(thisCard.getImage(),thisCard.getX(),thisCard.getY(),this);
     }
 
   }
 
   public void processClick(int x, int y) {
-    System.out.println("Clicked (" + x + "," + y + ")") ;
+    Card myCard = tmpDeck.getClicked(x,y);
+    if(myCard!=null) {
+      tmpDeck.bringToFront(myCard);
+      tmpDeck.printDeck();
+      repaint();
+    }
   }
 
 }
