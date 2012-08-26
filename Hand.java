@@ -1,4 +1,4 @@
-public class Hand{
+public class Hand {
 
 	//values manage the cards
 	int numCards;
