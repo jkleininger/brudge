@@ -12,7 +12,7 @@ public class Deck {
 
   public Deck(boolean shuf) {
     try { cImg = ImageIO.read(new File("assets/cards.png")); } catch (IOException e) { System.exit(1); }
-    for(int s=1;s<=1;s++) {
+    for(int s=1;s<=4;s++) {
       for(int r=1;r<=13;r++) {
         card.add(new Card(r,s,-1,extractCardImage(r,s)));
       }
@@ -52,9 +52,9 @@ public class Deck {
   }
 
   public BufferedImage extractCardImage(int r, int s) {
-    int rOff = (r-1) * 73;
-    int sOff = (s-1) * 98;
-    return cImg.getSubimage(rOff,sOff,72,97);
+    int rOff = ((r-1) * 73)+1;
+    int sOff = ((s-1) * 98)+1;
+    return cImg.getSubimage(rOff,sOff,71,96);
   }
   
   public Card getClicked(int x, int y) {

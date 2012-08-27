@@ -1,8 +1,9 @@
+import java.util.ArrayList;
+
 public class Hand {
 
 	//values manage the cards
-	int numCards;
-	Card[] cards;
+    ArrayList<Card> card;
 
 	//values manage the hand info
 	int HCP;
@@ -18,9 +19,7 @@ public class Hand {
 
 	//initialize
 	public Hand(){
-		cards = new Card[13];
-		
-		numCards = 0;
+        card = new ArrayList<Card>(0);
 		HCP = 0;
 		//making num suit count to 4 was just more convenient
 		numSuit     = new int[5];
@@ -36,7 +35,7 @@ public class Hand {
 	}
 
   void addCard(Card newCard){
-    cards[numCards++] = newCard;
+    card.add(newCard);
     processCard(newCard);
   }
 
@@ -48,7 +47,7 @@ public class Hand {
     int adjRank = 1;
     int goesTo  = 0;
 
-    numSuit[suit] ++;
+    numSuit[suit]++;
 
     if(rank > 10){
       HCP += (rank-10);
@@ -64,12 +63,14 @@ public class Hand {
     if(rank > highestSuit[suit]) { highestSuit[suit] = rank; }
   }
 
-  int  getNumberOfCards()         { return numCards;          }
-  Card getCard(int card)          { return cards[card];       }
+  int  getNumberOfCards()         { return card.size();       }
+  Card getCard(int c)             { return card.get(c);       }
   int  getHCP()                   { return HCP;               }
   int  getNumberOfSuit(int suit)  { return numSuit[suit];     }
   int  getHCPInSuit(int suit)     { return HCPSuit[suit];     }
   int  getHCsInSuit(int suit)     { return HCSuit[suit];      }
   int  getHighestInSuit(int suit) { return highestSuit[suit]; }
-	
+  ArrayList<Card> getHand()       { return card;              }
+  void removeCard(Card c)         { card.remove(c);           }
+
 }

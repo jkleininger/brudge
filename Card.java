@@ -27,22 +27,22 @@ public class Card implements Comparable<Card> {
       zPos   = z;
     }
 
-    BufferedImage getImage()             { return img;              }
-    Rectangle     getRect()              { return rect;             }
-    int           getX()                 { return (int)rect.getX(); }
-    int           getY()                 { return (int)rect.getY(); }
-    int           getZ()                 { return zPos;             }
-    void          setZ(int z)            { zPos = z;                }
-    void          decZ()                 { zPos--;                  }
-    int           getOwner()             { return owner;            }
-    void          setOwner(int o)        { owner = o;               }
-    int           getRank()              { return rank;             }
-    char          getCRank()             { return ranks[rank];      }
-    int           getIntSuit()           { return suit;             }
-    char          getSuit()              { return suits[suit];      }
-    boolean       isFaceUp()             { return faceup;           }
-    void          flip()                 { faceup = !faceup;        }
-    void          moveTo(int x, int y)   { rect.setLocation(x,y);   }
+    BufferedImage getImage()             { return img;                }
+    Rectangle     getRect()              { return rect;               }
+    int           getX()                 { return (int)rect.getX();   }
+    int           getY()                 { return (int)rect.getY();   }
+    int           getZ()                 { return zPos;               }
+    void          setZ(int z)            { zPos = z;                  }
+    void          decZ()                 { zPos--;                    }
+    int           getOwner()             { return owner;              }
+    void          setOwner(int o)        { owner = o;                 }
+    int           getRank()              { return rank;               }
+    char          getCRank()             { return ranks[rank];        }
+    int           getIntSuit()           { return suit;               }
+    char          getSuit()              { return suits[suit];        }
+    boolean       isFaceUp()             { return faceup;             }
+    void          flip()                 { faceup = !faceup;          }
+    void          moveTo(int x, int y)   { rect.setLocation(x,y);     }
     boolean       contains(int x, int y) { return rect.contains(x,y); }
 
     void printCard()  { System.out.println(ranks[rank] + "" + suits[suit] + "(" + zPos + ")"); }

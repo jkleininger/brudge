@@ -14,21 +14,21 @@ import java.util.Collections;
 
 public class AIPlayer {
   ArrayList<Card> choices;
-  ArrayList<Card> hand;
+  Hand            myHand;
   int             points = 0;
   boolean         vulnerable = false;
 
   public AIPlayer() {
-    hand = new ArrayList<Card>(0);
+    myHand = new Hand();
   }
 
   public void dealMeOne(Card c) {
-    hand.add(c);
+    myHand.addCard(c);
   }    
 
   protected void showHand() {
-    for(int c=0;c<hand.size();c++) {
-      hand.get(c).printCard(); System.out.print(" ");
+    for(int c=0;c<myHand.getNumberOfCards();c++) {
+      myHand.getCard(c).printCard(); System.out.print(" ");
     }
     System.out.println();
   }
@@ -41,14 +41,13 @@ public class AIPlayer {
     System.out.println();
   }
 
-
   // systematically eliminates cards from hand.  returns whatever remains.
   public Card selectAndPlay(ArrayList<Card> played,Card[] trick,char trump,char suit) {
-    choices = new ArrayList<Card>(hand);
+    choices = new ArrayList<Card>(myHand.getHand());
     if(suit=='N') { pickSuit(); }  // player is lead
     if(hasSuit(suit)) { leaveHighest(suit); }
     else if(hasSuit(trump)) { leaveLowest(trump); }
-    hand.remove(choices.get(0));
+    myHand.removeCard(choices.get(0));
     return(choices.get(0));
   }
 
@@ -96,8 +95,9 @@ public class AIPlayer {
     }
   };
 
-  int     getPoints()      { return(points);         }
-  void    setPoints(int p) { this.points = p;        }
-  boolean isVulnerable()   { return this.vulnerable; }
+  int     getPoints()       { return(points);         }
+  void    setPoints(int p)  { this.points = p;        }
+  boolean isVulnerable()    { return this.vulnerable; }
+  ArrayList<Card> getHand() { return myHand;          }
 
 }
