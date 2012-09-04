@@ -2,10 +2,8 @@ import java.util.ArrayList;
 
 public class Hand {
 
-	//values manage the cards
     ArrayList<Card> card;
 
-	//values manage the hand info
 	int HCP;
 	int[] numSuit;
 	int[] HCPSuit;
@@ -52,9 +50,8 @@ public class Hand {
     if(rank > 10){
       HCP += (rank-10);
       HCPSuit[suit] += (rank-10);
-      goesTo = (rank-11);
 
-      adjRank=adjRank<<goesTo;
+      adjRank=adjRank<<(rank-11);
 
       HCSuit[suit] += adjRank;
     }

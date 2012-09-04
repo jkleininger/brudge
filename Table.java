@@ -60,7 +60,7 @@ public class Table {
   public void deal() {
     for(int r=0;r<13;r++) {
       for(int p=dealer+1;p<=dealer+4;p++) {
-        player[p<4?p:p-4].dealMeOne(theDeck.dealNext());
+        player[p<4?p:p-4].dealMeOne(theDeck.dealNext(),p);
       }
     }
   }

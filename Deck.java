@@ -66,7 +66,6 @@ public class Deck {
   }
 
   public void bringToFront(Card theCard) {
-    //System.out.print("Bringing "); theCard.printCard(); System.out.print(" to the front\n");
     int oldZ = theCard.getZ();
     for(Card c : card) {
 	  if(c.getZ()>oldZ) { c.decZ(); }

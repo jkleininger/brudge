@@ -22,7 +22,8 @@ public class AIPlayer {
     myHand = new Hand();
   }
 
-  public void dealMeOne(Card c) {
+  public void dealMeOne(Card c, int owner) {
+    c.setOwner(owner);
     myHand.addCard(c);
   }    
 
@@ -98,6 +99,6 @@ public class AIPlayer {
   int     getPoints()       { return(points);         }
   void    setPoints(int p)  { this.points = p;        }
   boolean isVulnerable()    { return this.vulnerable; }
-  ArrayList<Card> getHand() { return myHand;          }
+  Hand    getHand()         { return myHand;          }
 
 }
